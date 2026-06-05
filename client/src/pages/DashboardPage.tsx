@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { cases } from "../features/cases/caseData";
+import { completedCases } from "../store/gameProgress";
 
 function DashboardPage() {
   return (
@@ -7,21 +9,42 @@ function DashboardPage() {
         Detective Dashboard
       </h1>
 
-      <div className="bg-slate-800 p-6 rounded-xl max-w-lg">
-        <h2 className="text-2xl font-semibold mb-2">
-          Case 001: The Data Breach
-        </h2>
+      <div className="grid gap-6">
 
-        <p className="text-slate-300 mb-6">
-          Investigate a confidential company data leak and identify the culprit.
-        </p>
+        {cases.map((c) => {
+          const progress = completedCases.find(
+            (p) => p.id === c.id
+          );
 
-        <Link
-          to="/case/1"
-          className="bg-blue-600 px-5 py-3 rounded-lg hover:bg-blue-700"
-        >
-          Open Case
-        </Link>
+          return (
+            <div
+              key={c.id}
+              className="bg-slate-800 p-6 rounded-xl"
+            >
+              <h2 className="text-2xl font-bold">
+                {c.title}
+              </h2>
+
+              <p className="text-slate-300 my-4">
+                {c.description}
+              </p>
+
+              <p className="mb-4">
+                {progress?.completed
+                  ? "✅ Completed"
+                  : "🔒 Locked"}
+              </p>
+
+              <Link
+                to="/case"
+                className="bg-blue-600 px-5 py-2 rounded-lg inline-block"
+              >
+                Open Case
+              </Link>
+            </div>
+          );
+        })}
+
       </div>
     </div>
   );

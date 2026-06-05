@@ -1,0 +1,14 @@
+export const completedCases = [
+  {
+    id: 1,
+    completed: true
+  },
+  {
+    id: 2,
+    completed: false
+  },
+  {
+    id: 3,
+    completed: false
+  }
+];

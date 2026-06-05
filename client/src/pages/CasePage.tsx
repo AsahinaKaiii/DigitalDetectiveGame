@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function CasePage() {
   const [collectedClues, setCollectedClues] = useState<string[]>([]);
@@ -27,6 +28,16 @@ function CasePage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white p-10">
+
+      <div className="mb-6">
+        <Link
+          to="/dashboard"
+          className="bg-slate-700 px-4 py-2 rounded-lg hover:bg-slate-600"
+        >
+          ← Back to Dashboard
+        </Link>
+      </div>
+
       <h1 className="text-5xl font-bold mb-4">
         Case 001: The Data Breach
       </h1>
@@ -138,51 +149,13 @@ function CasePage() {
             Suspect Profile
           </h2>
 
-          {selectedSuspect === "Sarah Johnson" && (
-            <div>
-              <h3 className="text-xl font-bold mb-2">
-                Sarah Johnson
-              </h3>
-
-              <p>Role: Database Administrator</p>
-              <p>
-                Alibi: Claims she was performing overnight database maintenance.
-              </p>
-              <p>Access Level: Full database access.</p>
-            </div>
-          )}
-
-          {selectedSuspect === "Michael Smith" && (
-            <div>
-              <h3 className="text-xl font-bold mb-2">
-                Michael Smith
-              </h3>
-
-              <p>Role: IT Technician</p>
-              <p>
-                Alibi: Says he was repairing network equipment.
-              </p>
-              <p>Access Level: Server room access.</p>
-            </div>
-          )}
-
-          {selectedSuspect === "Emily Davis" && (
-            <div>
-              <h3 className="text-xl font-bold mb-2">
-                Emily Davis
-              </h3>
-
-              <p>Role: Security Analyst</p>
-              <p>
-                Alibi: Reviewing security logs during the incident.
-              </p>
-              <p>Access Level: Security monitoring systems.</p>
-            </div>
-          )}
+          <p className="mb-4">
+            Selected Suspect: {selectedSuspect}
+          </p>
 
           <button
             onClick={accuseSuspect}
-            className="mt-4 bg-red-600 px-6 py-3 rounded-lg hover:bg-red-500"
+            className="bg-red-600 px-6 py-3 rounded-lg hover:bg-red-500"
           >
             Accuse Suspect
           </button>
@@ -198,6 +171,16 @@ function CasePage() {
           <p>{gameResult}</p>
         </div>
       )}
+
+      <div className="mt-8">
+        <Link
+          to="/dashboard"
+          className="bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-500"
+        >
+          Return to Dashboard
+        </Link>
+      </div>
+
     </div>
   );
 }
