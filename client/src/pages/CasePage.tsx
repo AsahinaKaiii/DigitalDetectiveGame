@@ -3,10 +3,25 @@ import { useState } from "react";
 function CasePage() {
   const [collectedClues, setCollectedClues] = useState<string[]>([]);
   const [selectedSuspect, setSelectedSuspect] = useState("");
+  const [caseSolved, setCaseSolved] = useState(false);
+  const [gameResult, setGameResult] = useState("");
 
   const collectEvidence = (clueId: string) => {
     if (!collectedClues.includes(clueId)) {
       setCollectedClues([...collectedClues, clueId]);
+    }
+  };
+
+  const accuseSuspect = () => {
+    if (selectedSuspect === "Michael Smith") {
+      setGameResult(
+        "Correct! Michael Smith was responsible for the data breach."
+      );
+      setCaseSolved(true);
+    } else {
+      setGameResult(
+        `Incorrect! ${selectedSuspect} is not responsible for the breach.`
+      );
     }
   };
 
@@ -20,6 +35,18 @@ function CasePage() {
         A confidential customer database has been leaked.
         Your task is to identify the responsible employee.
       </p>
+
+      {caseSolved && (
+        <div className="bg-green-700 p-4 rounded-xl mb-6">
+          <h2 className="text-2xl font-bold">
+            🎉 Case Solved!
+          </h2>
+
+          <p>
+            You successfully identified the culprit and closed the investigation.
+          </p>
+        </div>
+      )}
 
       <div className="bg-slate-800 p-6 rounded-xl mb-6">
         <h2 className="text-2xl font-semibold mb-4">
@@ -111,10 +138,64 @@ function CasePage() {
             Suspect Profile
           </h2>
 
-          <p>
-            Currently Investigating:
-            <strong> {selectedSuspect}</strong>
-          </p>
+          {selectedSuspect === "Sarah Johnson" && (
+            <div>
+              <h3 className="text-xl font-bold mb-2">
+                Sarah Johnson
+              </h3>
+
+              <p>Role: Database Administrator</p>
+              <p>
+                Alibi: Claims she was performing overnight database maintenance.
+              </p>
+              <p>Access Level: Full database access.</p>
+            </div>
+          )}
+
+          {selectedSuspect === "Michael Smith" && (
+            <div>
+              <h3 className="text-xl font-bold mb-2">
+                Michael Smith
+              </h3>
+
+              <p>Role: IT Technician</p>
+              <p>
+                Alibi: Says he was repairing network equipment.
+              </p>
+              <p>Access Level: Server room access.</p>
+            </div>
+          )}
+
+          {selectedSuspect === "Emily Davis" && (
+            <div>
+              <h3 className="text-xl font-bold mb-2">
+                Emily Davis
+              </h3>
+
+              <p>Role: Security Analyst</p>
+              <p>
+                Alibi: Reviewing security logs during the incident.
+              </p>
+              <p>Access Level: Security monitoring systems.</p>
+            </div>
+          )}
+
+          <button
+            onClick={accuseSuspect}
+            className="mt-4 bg-red-600 px-6 py-3 rounded-lg hover:bg-red-500"
+          >
+            Accuse Suspect
+          </button>
+        </div>
+      )}
+
+      {gameResult && (
+        <div className="bg-slate-800 p-6 rounded-xl mt-6">
+          <h2 className="text-2xl font-bold mb-2">
+            Investigation Result
+          </h2>
+
+          <p>{gameResult}</p>
         </div>
       )}
     </div>
