@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 function CasePage() {
   const [collectedClues, setCollectedClues] = useState<string[]>([]);
   const [selectedSuspect, setSelectedSuspect] = useState("");
-  const [caseSolved, setCaseSolved] = useState(false);
+ const [caseSolved, setCaseSolved] = useState(() => {
+  return localStorage.getItem("caseSolved") === "true";
+});
   const [gameResult, setGameResult] = useState("");
 
   const collectEvidence = (clueId: string) => {
@@ -19,6 +21,7 @@ function CasePage() {
         "Correct! Michael Smith was responsible for the data breach."
       );
       setCaseSolved(true);
+      localStorage.setItem("caseSolved", "true");
     } else {
       setGameResult(
         `Incorrect! ${selectedSuspect} is not responsible for the breach.`
